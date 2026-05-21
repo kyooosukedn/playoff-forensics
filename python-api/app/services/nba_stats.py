@@ -24,7 +24,8 @@ def _df(endpoint_method, **kwargs) -> pd.DataFrame:
     """Call an nba_api endpoint and return a DataFrame."""
     time.sleep(0.6)  # rate limit
     result = endpoint_method(**kwargs, timeout=30)
-    return result.get_data_frame()
+    dfs = result.get_data_frames()
+    return dfs[0] if dfs else pd.DataFrame()
 
 
 def get_playoff_player_stats() -> list[dict]:
@@ -41,7 +42,7 @@ def get_playoff_player_stats() -> list[dict]:
     cols = {
         "PLAYER_ID": "playerId",
         "PLAYER": "player",
-        "TEAM_ABBREVIATION": "team",
+        "TEAM": "team",
         "GP": "gp",
         "PTS": "pts",
         "REB": "reb",
@@ -56,7 +57,8 @@ def get_playoff_player_stats() -> list[dict]:
         "EFF": "eff",
     }
     df = df.rename(columns=cols)
-    df = df[list(cols.values())]
+    available = [c for c in cols.values() if c in df.columns]
+    df = df[available]
     return df.head(25).to_dict(orient="records")
 
 
@@ -90,7 +92,7 @@ def get_playoff_team_stats() -> list[dict]:
     }
     df = df[[c for c in keep if c in df.columns]]
     df = df.rename(columns={k: v for k, v in keep.items() if k in df.columns})
-    return df.to_dict(orient="records")
+    return df.fillna(0).to_dict(orient="records")
 
 
 def get_team_record(team_abbr: str) -> dict:

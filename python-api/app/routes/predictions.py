@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 from pydantic import BaseModel
-from app.models.win_probability import predict_game_live
+from app.models.win_probability import predict_gameLive
 
 router = APIRouter(prefix="/predictions", tags=["predictions"])
 
@@ -22,7 +22,7 @@ async def win_probability(req: WinProbRequest):
     Uses a feedforward neural net considering score differential,
     time remaining, possession, and team net ratings.
     """
-    result = predict_game_live(
+    result = predict_gameLive(
         home_score=req.homeScore,
         away_score=req.awayScore,
         quarter=req.quarter,
@@ -36,7 +36,7 @@ async def win_probability(req: WinProbRequest):
 @router.get("/win-probability/sample")
 async def win_probability_sample():
     """Sample prediction for a close 4th quarter game."""
-    return predict_game_live(
+    return predict_gameLive(
         home_score=98,
         away_score=96,
         quarter=4,

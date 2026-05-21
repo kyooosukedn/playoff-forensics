@@ -4,6 +4,8 @@ import Footer from "@/components/Footer";
 import PlayerStatsTable from "@/components/PlayerStatsTable";
 import WinProbGauge from "@/components/WinProbGauge";
 
+const PYTHON_API = process.env.PYTHON_API_URL || "http://localhost:8000";
+
 export default function AnalyticsPage() {
   return (
     <div className="min-h-screen bg-canvas">
@@ -70,10 +72,10 @@ export default function AnalyticsPage() {
         <section className="px-8 py-10 md:px-12">
           <div className="max-w-[1280px] mx-auto space-y-8">
             {/* Win Probability */}
-            <WinProbGauge />
+            <WinProbGauge pythonApiUrl={PYTHON_API} />
 
             {/* Player Stats Table */}
-            <PlayerStatsTable />
+            <PlayerStatsTable pythonApiUrl={PYTHON_API} />
 
             {/* Quick start guide */}
             <div className="bg-surface-soft border border-hairline rounded-xl p-6">
