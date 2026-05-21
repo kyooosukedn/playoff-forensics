@@ -112,3 +112,56 @@ body::after {
   0% { transform: translateY(-100%); }
   100% { transform: translateY(100vh); }
 }
+
+@keyframes agentFloat {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  25% { transform: translateY(-6px) rotate(1deg); }
+  75% { transform: translateY(4px) rotate(-1deg); }
+}
+
+@keyframes agentBreathe {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.08); opacity: 0.9; }
+}
+
+@keyframes agentGlitch {
+  0% { transform: translate(0) skew(0deg); filter: hue-rotate(0deg); }
+  10% { transform: translate(-2px, 1px) skew(2deg); filter: hue-rotate(20deg); }
+  20% { transform: translate(2px, -1px) skew(-1deg); filter: hue-rotate(-20deg); }
+  30% { transform: translate(-1px, 2px) skew(1deg); filter: hue-rotate(10deg); }
+  40% { transform: translate(1px, -2px) skew(-2deg); filter: hue-rotate(-10deg); }
+  50% { transform: translate(0) skew(0deg); filter: hue-rotate(0deg); }
+  100% { transform: translate(0) skew(0deg); filter: hue-rotate(0deg); }
+}
+
+@keyframes agentPulseGlow {
+  0%, 100% { box-shadow: 0 0 0px var(--glow-color, rgba(212,160,23,0.3)); }
+  50% { box-shadow: 0 0 20px var(--glow-color, rgba(212,160,23,0.3)), 0 0 40px var(--glow-color, rgba(212,160,23,0.15)); }
+}
+
+@keyframes agentMorphBlob {
+  0%, 100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
+  25% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
+  50% { border-radius: 50% 60% 30% 60% / 30% 50% 70% 50%; }
+  75% { border-radius: 60% 30% 60% 40% / 70% 40% 50% 60%; }
+}
+
+@keyframes agentScanLine {
+  0% { top: -20%; }
+  100% { top: 120%; }
+}
+
+@keyframes typewriterReveal {
+  from { max-height: 0; opacity: 0; }
+  to { max-height: 500px; opacity: 1; }
+}
+
+@keyframes dispatchSlideIn {
+  from { opacity: 0; transform: translateX(-20px) scale(0.97); }
+  to { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes ringPulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
+}
