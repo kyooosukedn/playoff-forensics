@@ -3,10 +3,10 @@
 import { useState } from "react";
 
 const navLinks = [
-  { label: "War Room", href: "/" },
-  { label: "Case Files", href: "/case-files" },
+  { label: "Feed", href: "/" },
+  { label: "Storylines", href: "/case-files" },
   { label: "Agents", href: "/agents" },
-  { label: "Evidence Board", href: "/evidence-board" },
+  { label: "Take Board", href: "/evidence-board" },
 ];
 
 const agents = [

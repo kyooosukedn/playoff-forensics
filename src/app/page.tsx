@@ -4,8 +4,9 @@ import Footer from "@/components/Footer";
 import LiveScoreboard from "@/components/LiveScoreboard";
 import SocialPost from "@/components/SocialPost";
 import IGStoryCard from "@/components/IGStoryCard";
-import RedditThread from "@/components/RedditThread";
-import { xPosts, igStories, redditPosts, bleacherDrops, formatCount } from "@/lib/data/mock-social";
+import LiveRedditFeed from "@/components/LiveRedditFeed";
+import LiveTweetFeed from "@/components/LiveTweetFeed";
+import { xPosts, igStories, bleacherDrops, formatCount } from "@/lib/data/mock-social";
 
 export default function WarRoom() {
   return (
@@ -61,7 +62,7 @@ export default function WarRoom() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Main feed — 2 columns */}
             <div className="lg:col-span-2 space-y-10">
-              {/* X/Twitter posts */}
+              {/* X/Twitter posts — live embeds with mock fallback */}
               <section>
                 <div className="flex items-center gap-3 mb-5">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="#e7e9ea">
@@ -73,17 +74,27 @@ export default function WarRoom() {
                   >
                     Trending on X
                   </h2>
+                  <span
+                    className="text-muted-soft text-[10px] uppercase tracking-[1px]"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    live
+                  </span>
+                  <span className="w-1 h-1 rounded-full" style={{ backgroundColor: "#27ae60", animation: "pulseAmber 2s infinite" }} />
                   <div className="flex-1 h-[1px] bg-hairline" />
                 </div>
 
-                <div className="space-y-3">
-                  {xPosts.slice(0, 4).map((post, i) => (
+                <LiveTweetFeed />
+
+                {/* Mock fallback below live tweets */}
+                <div className="mt-3 space-y-3">
+                  {xPosts.slice(0, 3).map((post, i) => (
                     <SocialPost key={post.id} post={post} index={i} />
                   ))}
                 </div>
               </section>
 
-              {/* Reddit threads */}
+              {/* Reddit threads — live from r/nba */}
               <section>
                 <div className="flex items-center gap-3 mb-5">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff4500">
@@ -98,16 +109,19 @@ export default function WarRoom() {
                     className="text-ink text-[13px] tracking-[1.5px] uppercase"
                     style={{ fontFamily: "'JetBrains Mono', monospace" }}
                   >
-                    r/nba Hot Takes
+                    r/nba Live Feed
                   </h2>
+                  <span
+                    className="text-muted-soft text-[10px] uppercase tracking-[1px]"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    live
+                  </span>
+                  <span className="w-1 h-1 rounded-full" style={{ backgroundColor: "#27ae60", animation: "pulseAmber 2s infinite" }} />
                   <div className="flex-1 h-[1px] bg-hairline" />
                 </div>
 
-                <div className="space-y-4">
-                  {redditPosts.map((post, i) => (
-                    <RedditThread key={post.id} post={post} index={i} />
-                  ))}
-                </div>
+                <LiveRedditFeed />
               </section>
             </div>
 
