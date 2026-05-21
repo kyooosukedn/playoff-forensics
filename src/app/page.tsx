@@ -2,11 +2,10 @@ import TopNav from "@/components/TopNav";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import LiveScoreboard from "@/components/LiveScoreboard";
-import SocialPost from "@/components/SocialPost";
-import IGStoryCard from "@/components/IGStoryCard";
 import LiveRedditFeed from "@/components/LiveRedditFeed";
-import LiveTweetFeed from "@/components/LiveTweetFeed";
-import { xPosts, igStories, bleacherDrops, formatCount } from "@/lib/data/mock-social";
+import LiveESPNFeed from "@/components/LiveESPNFeed";
+import LiveSocialRoundup from "@/components/LiveSocialRoundup";
+import { formatCount } from "@/lib/data/mock-social";
 
 export default function WarRoom() {
   return (
@@ -62,36 +61,26 @@ export default function WarRoom() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
             {/* Main feed — 2 columns */}
             <div className="lg:col-span-2 space-y-10">
-              {/* X/Twitter posts — live embeds with mock fallback */}
+              {/* ESPN News — live articles */}
               <section>
                 <div className="flex items-center gap-3 mb-5">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#e7e9ea">
-                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                  </svg>
+                  <span
+                    className="text-[11px] font-black text-ink"
+                    style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                  >
+                    ESPN
+                  </span>
                   <h2
                     className="text-ink text-[13px] tracking-[1.5px] uppercase"
                     style={{ fontFamily: "'JetBrains Mono', monospace" }}
                   >
-                    Trending on X
+                    NBA News & Analysis
                   </h2>
-                  <span
-                    className="text-muted-soft text-[10px] uppercase tracking-[1px]"
-                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                  >
-                    live
-                  </span>
                   <span className="w-1 h-1 rounded-full" style={{ backgroundColor: "#27ae60", animation: "pulseAmber 2s infinite" }} />
                   <div className="flex-1 h-[1px] bg-hairline" />
                 </div>
 
-                <LiveTweetFeed />
-
-                {/* Mock fallback below live tweets */}
-                <div className="mt-3 space-y-3">
-                  {xPosts.slice(0, 3).map((post, i) => (
-                    <SocialPost key={post.id} post={post} index={i} />
-                  ))}
-                </div>
+                <LiveESPNFeed />
               </section>
 
               {/* Reddit threads — live from r/nba */}
@@ -125,9 +114,9 @@ export default function WarRoom() {
               </section>
             </div>
 
-            {/* Right sidebar — 1 column */}
+            {/* Right sidebar — live social roundup */}
             <div className="space-y-10">
-              {/* Player IG reactions */}
+              {/* Player reactions — Gemini-powered */}
               <section>
                 <div className="flex items-center gap-3 mb-5">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e1306c" strokeWidth="2">
@@ -139,57 +128,12 @@ export default function WarRoom() {
                     className="text-ink text-[13px] tracking-[1.5px] uppercase"
                     style={{ fontFamily: "'JetBrains Mono', monospace" }}
                   >
-                    Players Reacting
+                    Player Reactions
                   </h2>
+                  <span className="w-1 h-1 rounded-full" style={{ backgroundColor: "#27ae60", animation: "pulseAmber 2s infinite" }} />
                 </div>
 
-                <div className="space-y-4">
-                  {igStories.map((story, i) => (
-                    <IGStoryCard key={story.id} story={story} index={i} />
-                  ))}
-                </div>
-              </section>
-
-              {/* Bleacher Report drops */}
-              <section>
-                <div className="flex items-center gap-3 mb-5">
-                  <div className="w-4 h-4 bg-white rounded-sm flex items-center justify-center">
-                    <span style={{ fontSize: "9px", fontWeight: 900, color: "#000" }}>B</span>
-                  </div>
-                  <h2
-                    className="text-ink text-[13px] tracking-[1.5px] uppercase"
-                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                  >
-                    Bleacher Drops
-                  </h2>
-                </div>
-
-                <div className="space-y-3">
-                  {bleacherDrops.map((drop, i) => (
-                    <div
-                      key={drop.id}
-                      className="bg-surface-card border border-hairline rounded-xl p-5 hover:border-hairline-strong transition-colors"
-                      style={{ animation: `dispatchSlideIn 0.5s ease-out ${0.1 + i * 0.1}s both` }}
-                    >
-                      <div className="text-2xl mb-2">{drop.emoji}</div>
-                      <h3
-                        className="text-ink text-[15px] font-bold uppercase tracking-[0.5px] mb-2"
-                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                      >
-                        {drop.headline}
-                      </h3>
-                      <p className="text-body text-[13px] leading-[1.6] mb-3">{drop.body}</p>
-                      <div
-                        className="flex items-center gap-4 text-muted text-[11px]"
-                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
-                      >
-                        <span>❤️ {formatCount(drop.likes)}</span>
-                        <span>↗ {formatCount(drop.shares)}</span>
-                        <span className="text-muted-soft ml-auto">{drop.timestamp}</span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <LiveSocialRoundup />
               </section>
             </div>
           </div>
