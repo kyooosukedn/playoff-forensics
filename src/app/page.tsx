@@ -1,110 +1,24 @@
 import TopNav from "@/components/TopNav";
 import Sidebar from "@/components/Sidebar";
-import LiveScoreboard from "@/components/LiveScoreboard";
-import CaseFileCard from "@/components/CaseFileCard";
-import EvidenceCard from "@/components/EvidenceCard";
-import AgentDispatch from "@/components/AgentDispatch";
-import StatBlock from "@/components/StatBlock";
-import EvidenceBoard from "@/components/EvidenceBoard";
 import Footer from "@/components/Footer";
+import LiveScoreboard from "@/components/LiveScoreboard";
+import SocialPost from "@/components/SocialPost";
+import IGStoryCard from "@/components/IGStoryCard";
+import RedditThread from "@/components/RedditThread";
+import { xPosts, igStories, redditPosts, bleacherDrops, formatCount } from "@/lib/data/mock-social";
 
-const caseFiles = [
-  {
-    caseId: "CF-2026-ECF-G4",
-    status: "under-investigation" as const,
-    headline: "The Collapse That Wasn't in the Script",
-    subtitle: "Down 17 with 6:42 remaining, the Nuggets mounted a 24-6 run that defied every predictive model. Four agents reported different versions of the same 4th quarter. The forensic engine found three discrepancies between narrative and data.",
-    tags: ["4TH QUARTER", "NARRATIVE GAP", "DATA VERIFIED"],
-    timestamp: "MAY 21 · 22:34 EST",
-  },
-  {
-    caseId: "CF-2026-ECF-G3",
-    status: "under-investigation" as const,
-    headline: "The Defensive Adjustment Nobody Noticed",
-    subtitle: "A subtle switching scheme change at the 8:14 mark of Q3 went unreported by all four media channels. But the data shows a 14-2 run immediately following the adjustment. Evidence suggests the playcall was the turning point.",
-    tags: ["HIDDEN TURNING POINT", "SIGNAL DETECTED"],
-    timestamp: "MAY 19 · 20:15 EST",
-  },
-  {
-    caseId: "CF-2026-ECF-G2",
-    status: "closed" as const,
-    headline: "MVP Performance or Volume Illusion?",
-    subtitle: "Every major outlet declared it an MVP-caliber game. The forensic engine disagrees. Plus-minus was neutral. Usage rate inflated by garbage-time possessions. Shot quality below season average. Case closed: volume, not value.",
-    tags: ["DISCREPANCY #3", "VERDICT RENDERED"],
-    timestamp: "MAY 17 · 23:48 EST",
-  },
-];
-
-const evidenceItems = [
-  {
-    number: 7,
-    content: "ESPN's postgame report claimed 'dominant two-way performance'. Defensive rating during player's minutes: 118.3 (team worst). Offensive rating: 109.1 (below team average). The data directly contradicts the 'two-way' characterization.",
-    severity: "discrepancy" as const,
-  },
-  {
-    number: 8,
-    content: "Bleacher Report's highlight reel showed only 4th-quarter makes. Full game shot chart reveals 4/14 from the field overall (28.6 FG%). Selective evidence presentation detected.",
-    severity: "discrepancy" as const,
-  },
-  {
-    number: 9,
-    content: "NBA TV correctly identified the defensive switching adjustment at Q3 8:14 as the turning point. This is corroborated by play-by-play data showing a 14-2 run immediately following the change.",
-    severity: "verified" as const,
-  },
-  {
-    number: 10,
-    content: "Reddit thread 'Jokic is washed' trended to r/nba front page with 4.2k upvotes. Meanwhile, his game score of 28.4 ranks in the 92nd percentile for playoff games this season. Narrative-data gap exceeds 2 standard deviations.",
-    severity: "discrepancy" as const,
-  },
-];
-
-const agentDispatches = [
-  {
-    agent: "bleacher" as const,
-    agentName: "Bleacher Report",
-    timestamp: "22:47 EST",
-    dispatch: "The atmosphere in Ball Arena was electric tonight. Fans were on their feet for the entire fourth quarter as the Nuggets orchestrated what might be the comeback of the playoffs. The energy was contagious — you could feel it through the screen. This is what playoff basketball is all about. The crowd, the drama, the sheer will to win...",
-  },
-  {
-    agent: "espn" as const,
-    agentName: "ESPN Analysis",
-    timestamp: "22:52 EST",
-    dispatch: "Breaking down the film, this was a masterclass in pick-and-roll defense from the Nuggets' second unit. The switch-everything scheme caught the opposing offense completely off guard. Our analytics team flagged a 14-2 run directly correlated to the defensive adjustment at the 8:14 mark of the third quarter...",
-  },
-  {
-    agent: "nbatv" as const,
-    agentName: "NBA TV Broadcast",
-    timestamp: "23:01 EST",
-    dispatch: "From the broadcast booth, we witnessed something special tonight. The tempo shift in the second half was palpable. Our broadcast cameras caught the coaching staff making a critical adjustment during the timeout — and the players executed it flawlessly. The defensive intensity ratcheted up three notches...",
-  },
-  {
-    agent: "reddit" as const,
-    agentName: "Reddit r/nba",
-    timestamp: "23:15 EST",
-    dispatch: "Thread is going absolutely nuclear right now. Top comment: 'This is why regular season records don't matter.' Someone posted the Jokic career playoff splits and they're honestly insane. But then you look at the advanced metrics and... it's complicated. The sub is split 60/40 on whether this was a fluke or a turning point...",
-  },
-];
-
-const stats = [
-  { label: "Active Investigations", value: 2, highlighted: true },
-  { label: "Narrative Gaps Found", value: 7, delta: "+3", deltaType: "negative" as const },
-  { label: "Evidence Verified", value: 23, delta: "+8", deltaType: "positive" as const },
-  { label: "Agent Dispatches", value: 48, delta: "+12", deltaType: "neutral" as const },
-  { label: "Discrepancies", value: 5, highlighted: true, delta: "+2", deltaType: "negative" as const },
-  { label: "Cases Closed", value: 3, deltaType: "positive" as const },
-];
-
-export default function Home() {
+export default function WarRoom() {
   return (
     <div className="min-h-screen bg-canvas">
       <TopNav />
       <Sidebar />
 
       <main className="md:ml-[280px] pt-14">
-        {/* Hero: Active Investigation */}
-        <section className="border-b border-hairline px-8 py-16 md:px-12">
+        {/* Hero */}
+        <section className="border-b border-hairline px-8 py-10 md:px-12">
           <div className="max-w-[1280px] mx-auto">
-            <div className="flex items-center gap-3 mb-6"
+            <div
+              className="flex items-center gap-3 mb-3"
               style={{ animation: "fadeInUp 0.4s ease-out both" }}
             >
               <span className="w-1.5 h-1.5 bg-accent rounded-full animate-pulse" />
@@ -112,161 +26,160 @@ export default function Home() {
                 className="text-accent text-[11px] tracking-[0.5px] uppercase"
                 style={{ fontFamily: "'JetBrains Mono', monospace" }}
               >
-                Active Investigation — Conference Finals
+                Live Feed — Western Conference Semifinals
               </span>
             </div>
 
             <h1
-              className="text-ink text-5xl md:text-[56px] font-normal leading-[1.1] tracking-[2px] uppercase mb-6"
+              className="text-ink text-[36px] md:text-[48px] font-normal leading-[1.1] tracking-[1px] uppercase mb-3"
               style={{
                 fontFamily: "'Special Elite', 'Courier New', monospace",
                 animation: "fadeInUp 0.6s ease-out 0.1s both",
               }}
             >
-              Game 4<br />
-              <span className="text-accent">Western Conference</span>
+              What Everyone&apos;s Saying
             </h1>
 
             <p
-              className="text-body text-lg leading-relaxed max-w-2xl mb-8"
-              style={{ animation: "fadeInUp 0.6s ease-out 0.2s both" }}
+              className="text-body text-[16px] max-w-2xl"
+              style={{ animation: "fadeInUp 0.6s ease-out 0.15s both" }}
             >
-              A 17-point comeback, four conflicting narratives, and one forensic engine
-              cutting through the noise. The truth is in the data.
+              Real narratives from real sources. Players, media, fans — everyone has a take.
+              Here&apos;s what the internet is saying right now.
             </p>
-
-            {/* Stat blocks row */}
-            <div
-              className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3"
-              style={{ animation: "fadeInUp 0.6s ease-out 0.3s both" }}
-            >
-              {stats.map((stat) => (
-                <StatBlock key={stat.label} {...stat} />
-              ))}
-            </div>
           </div>
         </section>
 
-        {/* Live Scores */}
-        <section className="px-8 py-12 md:px-12 border-b border-hairline">
+        {/* Live scores */}
+        <section className="px-8 py-8 md:px-12 border-b border-hairline">
           <div className="max-w-[1280px] mx-auto">
-            <div className="flex items-center justify-between mb-6">
-              <h2
-                className="text-ink text-2xl font-semibold tracking-tight"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
-                Live Scores
-              </h2>
-              <span
-                className="text-muted text-[11px] tracking-[0.5px] uppercase"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-              >
-                ESPN Data Feed · 60s refresh
-              </span>
-            </div>
             <LiveScoreboard />
           </div>
         </section>
 
-        {/* Case Files */}
-        <section className="px-8 py-16 md:px-12 border-b border-hairline">
-          <div className="max-w-[1280px] mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h2
-                className="text-ink text-2xl font-semibold tracking-tight"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
-                Open Case Files
-              </h2>
-              <span
-                className="text-muted text-[11px] tracking-[0.5px] uppercase"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-              >
-                3 cases on file
-              </span>
+        <div className="max-w-[1280px] mx-auto px-8 py-10 md:px-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            {/* Main feed — 2 columns */}
+            <div className="lg:col-span-2 space-y-10">
+              {/* X/Twitter posts */}
+              <section>
+                <div className="flex items-center gap-3 mb-5">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="#e7e9ea">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                  <h2
+                    className="text-ink text-[13px] tracking-[1.5px] uppercase"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    Trending on X
+                  </h2>
+                  <div className="flex-1 h-[1px] bg-hairline" />
+                </div>
+
+                <div className="space-y-3">
+                  {xPosts.slice(0, 4).map((post, i) => (
+                    <SocialPost key={post.id} post={post} index={i} />
+                  ))}
+                </div>
+              </section>
+
+              {/* Reddit threads */}
+              <section>
+                <div className="flex items-center gap-3 mb-5">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="#ff4500">
+                    <circle cx="12" cy="12" r="11" fill="none" stroke="#ff4500" strokeWidth="1.5" />
+                    <circle cx="8" cy="13" r="1.5" fill="#ff4500" />
+                    <circle cx="16" cy="13" r="1.5" fill="#ff4500" />
+                    <path d="M8 17c1.5 2 6.5 2 8 0" fill="none" stroke="#ff4500" strokeWidth="1.5" strokeLinecap="round" />
+                    <circle cx="17.5" cy="5.5" r="2" fill="#ff4500" />
+                    <line x1="12" y1="3" x2="17" y2="5" stroke="#ff4500" strokeWidth="1.5" />
+                  </svg>
+                  <h2
+                    className="text-ink text-[13px] tracking-[1.5px] uppercase"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    r/nba Hot Takes
+                  </h2>
+                  <div className="flex-1 h-[1px] bg-hairline" />
+                </div>
+
+                <div className="space-y-4">
+                  {redditPosts.map((post, i) => (
+                    <RedditThread key={post.id} post={post} index={i} />
+                  ))}
+                </div>
+              </section>
             </div>
 
-            <div className="grid gap-6 lg:grid-cols-2">
-              {caseFiles.map((cf, i) => (
-                <CaseFileCard key={cf.caseId} {...cf} index={i} />
-              ))}
+            {/* Right sidebar — 1 column */}
+            <div className="space-y-10">
+              {/* Player IG reactions */}
+              <section>
+                <div className="flex items-center gap-3 mb-5">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#e1306c" strokeWidth="2">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <circle cx="12" cy="12" r="5" />
+                    <circle cx="17.5" cy="6.5" r="1.5" fill="#e1306c" stroke="none" />
+                  </svg>
+                  <h2
+                    className="text-ink text-[13px] tracking-[1.5px] uppercase"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    Players Reacting
+                  </h2>
+                </div>
+
+                <div className="space-y-4">
+                  {igStories.map((story, i) => (
+                    <IGStoryCard key={story.id} story={story} index={i} />
+                  ))}
+                </div>
+              </section>
+
+              {/* Bleacher Report drops */}
+              <section>
+                <div className="flex items-center gap-3 mb-5">
+                  <div className="w-4 h-4 bg-white rounded-sm flex items-center justify-center">
+                    <span style={{ fontSize: "9px", fontWeight: 900, color: "#000" }}>B</span>
+                  </div>
+                  <h2
+                    className="text-ink text-[13px] tracking-[1.5px] uppercase"
+                    style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                  >
+                    Bleacher Drops
+                  </h2>
+                </div>
+
+                <div className="space-y-3">
+                  {bleacherDrops.map((drop, i) => (
+                    <div
+                      key={drop.id}
+                      className="bg-surface-card border border-hairline rounded-xl p-5 hover:border-hairline-strong transition-colors"
+                      style={{ animation: `dispatchSlideIn 0.5s ease-out ${0.1 + i * 0.1}s both` }}
+                    >
+                      <div className="text-2xl mb-2">{drop.emoji}</div>
+                      <h3
+                        className="text-ink text-[15px] font-bold uppercase tracking-[0.5px] mb-2"
+                        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                      >
+                        {drop.headline}
+                      </h3>
+                      <p className="text-body text-[13px] leading-[1.6] mb-3">{drop.body}</p>
+                      <div
+                        className="flex items-center gap-4 text-muted text-[11px]"
+                        style={{ fontFamily: "'JetBrains Mono', monospace" }}
+                      >
+                        <span>❤️ {formatCount(drop.likes)}</span>
+                        <span>↗ {formatCount(drop.shares)}</span>
+                        <span className="text-muted-soft ml-auto">{drop.timestamp}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </div>
           </div>
-        </section>
-
-        {/* Evidence Board */}
-        <section className="px-8 py-16 md:px-12 border-b border-hairline">
-          <div className="max-w-[1280px] mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h2
-                className="text-ink text-2xl font-semibold tracking-tight"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
-                Evidence Board — Game 4 Forensics
-              </h2>
-              <span
-                className="text-accent text-[11px] tracking-[0.5px] uppercase"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-              >
-                Red String Analysis
-              </span>
-            </div>
-
-            <EvidenceBoard />
-          </div>
-        </section>
-
-        {/* Forensic Evidence */}
-        <section className="px-8 py-16 md:px-12 border-b border-hairline">
-          <div className="max-w-[1280px] mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h2
-                className="text-ink text-2xl font-semibold tracking-tight"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
-                Forensic Evidence — Latest Findings
-              </h2>
-              <span
-                className="text-muted text-[11px] tracking-[0.5px] uppercase"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-              >
-                Evidence #7-#10
-              </span>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2">
-              {evidenceItems.map((item, i) => (
-                <EvidenceCard key={item.number} evidenceNumber={item.number} content={item.content} severity={item.severity} index={i} />
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Agent Dispatches */}
-        <section className="px-8 py-16 md:px-12">
-          <div className="max-w-[1280px] mx-auto">
-            <div className="flex items-center justify-between mb-8">
-              <h2
-                className="text-ink text-2xl font-semibold tracking-tight"
-                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-              >
-                Agent Dispatches — Live Reports
-              </h2>
-              <span
-                className="text-muted text-[11px] tracking-[0.5px] uppercase"
-                style={{ fontFamily: "'JetBrains Mono', monospace" }}
-              >
-                4 agents deployed
-              </span>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-2">
-              {agentDispatches.map((dispatch, i) => (
-                <AgentDispatch key={dispatch.agent} {...dispatch} index={i} />
-              ))}
-            </div>
-          </div>
-        </section>
+        </div>
       </main>
 
       <Footer />
