@@ -7,6 +7,7 @@ const navLinks = [
   { label: "Storylines", href: "/case-files" },
   { label: "Agents", href: "/agents" },
   { label: "Take Board", href: "/evidence-board" },
+  { label: "Analytics", href: "/analytics" },
 ];
 
 const agents = [
