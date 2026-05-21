@@ -1,5 +1,6 @@
 import TopNav from "@/components/TopNav";
 import Sidebar from "@/components/Sidebar";
+import LiveScoreboard from "@/components/LiveScoreboard";
 import CaseFileCard from "@/components/CaseFileCard";
 import EvidenceCard from "@/components/EvidenceCard";
 import AgentDispatch from "@/components/AgentDispatch";
@@ -143,6 +144,27 @@ export default function Home() {
                 <StatBlock key={stat.label} {...stat} />
               ))}
             </div>
+          </div>
+        </section>
+
+        {/* Live Scores */}
+        <section className="px-8 py-12 md:px-12 border-b border-hairline">
+          <div className="max-w-[1280px] mx-auto">
+            <div className="flex items-center justify-between mb-6">
+              <h2
+                className="text-ink text-2xl font-semibold tracking-tight"
+                style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+              >
+                Live Scores
+              </h2>
+              <span
+                className="text-muted text-[11px] tracking-[0.5px] uppercase"
+                style={{ fontFamily: "'JetBrains Mono', monospace" }}
+              >
+                ESPN Data Feed · 60s refresh
+              </span>
+            </div>
+            <LiveScoreboard />
           </div>
         </section>
 
