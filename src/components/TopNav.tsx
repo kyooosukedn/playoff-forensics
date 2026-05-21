@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import MobileNav from "./MobileNav";
 
 const navLinks = [
   { label: "War Room", href: "/" },
@@ -13,6 +14,7 @@ export default function TopNav() {
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
+    <>
     <nav className="fixed top-0 left-0 right-0 z-50 bg-canvas border-b border-hairline">
       <div className="max-w-[1280px] mx-auto px-6 h-14 flex items-center justify-between">
         <div className="flex items-center gap-10">
@@ -56,5 +58,7 @@ export default function TopNav() {
         </div>
       </div>
     </nav>
+    <MobileNav />
+    </>
   );
 }
